@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="row mt-5">
+      <div class="col-md-6 content">
+        <div class="form-floating">
+          <textarea class="form-control textarea"
+           id="textarea"
+           placeholder="Type or paste your text here"
+           style="height: 700px" [(ngModel)]="text" autocomplete="off" spellcheck="false"></textarea>
+
+          <label for="floatingTextarea2">Enter Text</label>
+        </div>
+        <button
+          type="button"
+          class="btn btn-success mt-3"
+          style="
+            --bs-btn-padding-y: 1rem;
+            --bs-btn-padding-x: 2rem;
+            --bs-btn-font-size: 1.5rem;
+            border-radius: 40px;
+          "
+          (click)="generateQuestions()"
+        >
+          Generate Questions
+        </button>
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="ms-3" *ngIf="keywords.length > 0">
+          <h1 class="display-1">Keywords : </h1>
+          <div class="card">
+            <div class="card-body">
+              <span style="font-size: 18px;" class="px-1" *ngFor="let key of keywords">{{key}} ,</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ms-3 mt-3" *ngIf="summrized_text">
+          <h1 class="display-6">Summary : </h1>
+              <p class="card p-3" id="summery">
+                {{summrized_text}}
+              </p>
+        </div>
+
+        <div class="ms-3 mt-3" *ngIf="questions">
+          <h1>Questions : </h1>
+
+          <div class="card-body shadow p-2 mb-3" style="font-size: 18px;" *ngFor="let q of questions">
+            <h3 class="text-success"><b>{{q.question}}</b></h3>
+            <p class="" *ngFor="let option of q.options; index as i">
+              {{i+1}}. {{option}}
+            </p>
+          </div>
+
+        </div>
+
+        <div class="ms-3 mt-3" *ngIf="questions">
+          <h1>Answers : </h1>
+
+          <div class="card-body pb-2" style="font-size: 18px;" *ngFor="let q of questions; index as i">
+            <h3 class="text-success"><b>{{i+1}}.{{q.answer}}</b></h3>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+  </div>
+
+

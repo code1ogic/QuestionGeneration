@@ -149,12 +149,12 @@ def execute(text):
     result = model(text, min_length=60, max_length = 500 , ratio = 0.4)
     summarized_text = ''.join(result)
 
-#    keywords = get_nouns_multipartite(text)
+   keywords = get_nouns_multipartite(text)
 
-#     filtered_keys=[]
-#     for keyword in keywords:
-#         if keyword.lower() in summarized_text.lower():
-#             filtered_keys.append(keyword.capitalize())
+    filtered_keys=[]
+    for keyword in keywords:
+        if keyword.lower() in summarized_text.lower():
+            filtered_keys.append(keyword.capitalize())
 
 #     sentences = tokenize_sentences(summarized_text)
 #     keyword_sentence_mapping = get_sentences_for_keyword(filtered_keys, sentences)
@@ -192,7 +192,7 @@ def execute(text):
     
     result = {
         "summarized_text" : summarized_text
-#         "keywords" : filtered_keys,
+        "keywords" : filtered_keys,
 #         "questions" : all_questions
     }
 

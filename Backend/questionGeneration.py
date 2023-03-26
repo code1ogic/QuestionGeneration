@@ -191,7 +191,7 @@ def execute(text):
 #         all_questions.append(question_obj)
     
     result = {
-        "summarized_text" : summarized_text
+        "summarized_text" : summarized_text,
         "keywords" : filtered_keys,
 #         "questions" : all_questions
     }

@@ -18,14 +18,26 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  file:any;
+  fileChanged(e) {
+      this.file = e.target.files[0];
+  }
 
   generateQuestions() {
-
-    if(this.text == '') {
+    
+    if(this.text == '' && this.file === undefined) {
       alert('Please enter valid text.')
       return;
     }
-
+    if(this.file !== undefined ) {
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.text = fileReader.result;
+      }
+      fileReader.readAsText(this.file);
+    }
+    
     this.spinner.show();
     let object = {text : this.text, wordlength : 100}
     this.dataService.getQustions(object).subscribe(res => {
@@ -33,7 +45,8 @@ export class QuestionsComponent implements OnInit {
       this.word_count = this.text.split(' ').length;
       this.keywords = res.keywords;
       this.summrized_text = res.summarized_text;
-      // this.questions = res.questions;
+      this.summrized_text.replace(/\[.*?\]/g,"");
+      this.questions = res.questions;
       this.spinner.hide();
     }, err => {
       console.log(err);

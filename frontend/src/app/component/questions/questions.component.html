@@ -9,6 +9,10 @@
 
           <label for="floatingTextarea2">Enter Text</label>
         </div>
+        <br>
+        <label for="floatingTextarea2"> Or Select file (.txt, .pdf only)</label>
+        <input type='file' (change)="fileChanged($event)">
+        <br>
         <button
           type="button"
           class="btn btn-success mt-3"
@@ -20,8 +24,9 @@
           "
           (click)="generateQuestions()"
         >
-          Generate Questions
+          Generate Summary & Questions
         </button>
+        
       </div>
 
       <div class="col-md-6">

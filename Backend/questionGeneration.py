@@ -156,44 +156,44 @@ def execute(text):
         if keyword.lower() in summarized_text.lower():
             filtered_keys.append(keyword.capitalize())
 
-#     sentences = tokenize_sentences(summarized_text)
-#     keyword_sentence_mapping = get_sentences_for_keyword(filtered_keys, sentences)
+    sentences = tokenize_sentences(summarized_text)
+    keyword_sentence_mapping = get_sentences_for_keyword(filtered_keys, sentences)
 
-#     key_distractor_list = {}
+    key_distractor_list = {}
 
-#     for keyword in keyword_sentence_mapping :
-#         wordsense = get_wordsense(keyword_sentence_mapping[keyword][0],keyword)
-#         if wordsense:
-#             distractors = get_distractors_wordnet(wordsense,keyword)
-#             if len(distractors) ==0:
-#                 distractors = get_distractors_conceptnet(keyword)
-#             if len(distractors) != 0:
-#                 key_distractor_list[keyword] = distractors
-#         else:
+    for keyword in keyword_sentence_mapping :
+        wordsense = get_wordsense(keyword_sentence_mapping[keyword][0],keyword)
+        if wordsense:
+            distractors = get_distractors_wordnet(wordsense,keyword)
+            if len(distractors) ==0:
+                distractors = get_distractors_conceptnet(keyword)
+            if len(distractors) != 0:
+                key_distractor_list[keyword] = distractors
+        else:
             
-#             distractors = get_distractors_conceptnet(keyword)
-#             if len(distractors) != 0:
-#                 key_distractor_list[keyword] = distractors
+            distractors = get_distractors_conceptnet(keyword)
+            if len(distractors) != 0:
+                key_distractor_list[keyword] = distractors
 
-#     all_questions = []
-#     for each in key_distractor_list:
-#         sentence = keyword_sentence_mapping[each][0]
-#         pattern = re.compile(each, re.IGNORECASE)
-#         output = pattern.sub( " _______ ", sentence)
-#         choices = [each.capitalize()] + key_distractor_list[each]
-#         top4choices = choices[:4]
-#         random.shuffle(top4choices)
-#         question_obj = {
-#             "question" : output,
-#             "options" : top4choices,
-#             "answer" : each.capitalize()
-#         }
-#         all_questions.append(question_obj)
+    all_questions = []
+    for each in key_distractor_list:
+        sentence = keyword_sentence_mapping[each][0]
+        pattern = re.compile(each, re.IGNORECASE)
+        output = pattern.sub( " _______ ", sentence)
+        choices = [each.capitalize()] + key_distractor_list[each]
+        top4choices = choices[:4]
+        random.shuffle(top4choices)
+        question_obj = {
+            "question" : output,
+            "options" : top4choices,
+            "answer" : each.capitalize()
+        }
+        all_questions.append(question_obj)
     
     result = {
         "summarized_text" : summarized_text,
         "keywords" : filtered_keys,
-#         "questions" : all_questions
+        "questions" : all_questions
     }
 
     return result

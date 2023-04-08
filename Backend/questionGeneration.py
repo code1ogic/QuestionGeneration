@@ -148,8 +148,8 @@ def execute(text):
     model = Summarizer()
     result = model(text, min_length=60, max_length = 500 , ratio = 0.4)
     summarized_text = ''.join(result)
-
-   keywords = get_nouns_multipartite(text)
+    
+    keywords = get_nouns_multipartite(text)
 
     filtered_keys=[]
     for keyword in keywords:

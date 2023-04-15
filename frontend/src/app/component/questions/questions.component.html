@@ -10,7 +10,7 @@
           <label for="floatingTextarea2">Enter Text</label>
         </div>
         <br>
-        <label for="floatingTextarea2"> Or Select file (.txt, .pdf only)</label>
+        <label for="floatingTextarea2"> Or Select file (.txt, .doc, .pdf only)</label>
         <input type='file' (change)="fileChanged($event)">
         <br>
         <button
@@ -22,9 +22,23 @@
             --bs-btn-font-size: 1.5rem;
             border-radius: 40px;
           "
+          (click)="generateSummary()"
+        >
+          Generate Summary
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-success mt-3 ms-3"
+          style="
+            --bs-btn-padding-y: 1rem;
+            --bs-btn-padding-x: 2rem;
+            --bs-btn-font-size: 1.5rem;
+            border-radius: 40px;
+          "
           (click)="generateQuestions()"
         >
-          Generate Summary & Questions
+          Generate Questions
         </button>
         
       </div>
@@ -35,7 +49,7 @@
           <h1 class="display-1">Word count : </h1>
           <div class="card">
             <div class="card-body">
-              <span style="font-size: 18px;" class="px-1" *ngFor="let key of keywords">{{word_count}}</span>
+              <span style="font-size: 18px;" class="px-1">{{word_count}}</span>
             </div>
           </div>
         </div>
@@ -56,7 +70,7 @@
               </p>
         </div>
 
-        <div class="ms-3 mt-3" *ngIf="questions">
+        <div class="ms-3 mt-3" *ngIf="questions.length > 0">
           <h1>Questions : </h1>
 
           <div class="card-body shadow p-2 mb-3" style="font-size: 18px;" *ngFor="let q of questions">
@@ -68,7 +82,7 @@
 
         </div>
 
-        <div class="ms-3 mt-3" *ngIf="questions">
+        <div class="ms-3 mt-3" *ngIf="questions.length > 0">
           <h1>Answers : </h1>
 
           <div class="card-body pb-2" style="font-size: 18px;" *ngFor="let q of questions; index as i">

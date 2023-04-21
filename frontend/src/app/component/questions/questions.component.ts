@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -14,6 +14,8 @@ export class QuestionsComponent implements OnInit {
   summrized_text : string = '';
   questions : any[] = [];
   word_count : number = 0;
+  @ViewChild('container') questionContainer: any;
+  
   constructor(private dataService : DataService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -73,13 +75,32 @@ export class QuestionsComponent implements OnInit {
 
   formatResult(res: any) {
     this.keywords = res.keywords;
-    this.summrized_text = res.summarized_text;
-    this.summrized_text = this.summrized_text.replace(/\[.*?\]/g,"");
+    // this.summrized_text = res.summarized_text;
+    // this.summrized_text = this.summrized_text.replace(/\[.*?\]/g,"");
+    this.summrized_text = '';
     this.questions = res.questions;
     this.questions.forEach(q => {
       q = q.toString().replace(/\[.*?\]/g,"");
     })
     this.spinner.hide();
+  }
+
+  printQuestions(_container:HTMLElement) {
+    let popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+   if(popupWin != null) {
+      popupWin.document.open();
+      popupWin.document.write(`
+        <html>
+          <head>
+            <title>Print tab</title>
+            <style>
+            //........Customized style.......
+            </style>
+          </head>
+      <body onload="window.print();window.close()">${this.questionContainer.nativeElement.innerHTML}</body>
+        </html>`
+      );
+   }
   }
 
 }

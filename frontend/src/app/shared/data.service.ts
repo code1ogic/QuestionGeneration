@@ -13,4 +13,8 @@ export class DataService {
     return this.http.post<any>(this.serviceURL+'/getQuestions', text)
   }
 
+  getSummary(text : any) : Observable<any> {
+    return this.http.post<any>(this.serviceURL+'/getSummary', text)
+  }
+
 }

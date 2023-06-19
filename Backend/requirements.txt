@@ -5,7 +5,7 @@ Step 2 : install below packages.
 
 pip install gensim
 pip install git+https://github.com/boudinfl/pke.git
-!python -m spacy download en
+python -m spacy download en
 pip install bert-extractive-summarizer --upgrade --force-reinstall
 pip install spacy==2.1.3 --upgrade --force-reinstall
 pip install -U nltk

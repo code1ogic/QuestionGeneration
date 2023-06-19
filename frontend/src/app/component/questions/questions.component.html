@@ -9,9 +9,27 @@
 
           <label for="floatingTextarea2">Enter Text</label>
         </div>
+        <br>
+        <label for="floatingTextarea2"> Or Select file (.txt, .doc, .pdf only)</label>
+        <input type='file' (change)="fileChanged($event)">
+        <br>
         <button
           type="button"
           class="btn btn-success mt-3"
+          style="
+            --bs-btn-padding-y: 1rem;
+            --bs-btn-padding-x: 2rem;
+            --bs-btn-font-size: 1.5rem;
+            border-radius: 40px;
+          "
+          (click)="generateSummary()"
+        >
+          Generate Summary
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-success mt-3 ms-3"
           style="
             --bs-btn-padding-y: 1rem;
             --bs-btn-padding-x: 2rem;
@@ -22,9 +40,19 @@
         >
           Generate Questions
         </button>
+        
       </div>
 
       <div class="col-md-6">
+        
+         <div class="ms-3" *ngIf="word_count > 0">
+          <h1 class="display-1">Word count : </h1>
+          <div class="card">
+            <div class="card-body">
+              <span style="font-size: 18px;" class="px-1">{{word_count}}</span>
+            </div>
+          </div>
+        </div>
 
         <div class="ms-3" *ngIf="keywords.length > 0">
           <h1 class="display-1">Keywords : </h1>
@@ -42,19 +70,43 @@
               </p>
         </div>
 
-        <div class="ms-3 mt-3" *ngIf="questions">
+        <div class="ms-3 mt-3" *ngIf="questions.length > 0">
           <h1>Questions : </h1>
-
-          <div class="card-body shadow p-2 mb-3" style="font-size: 18px;" *ngFor="let q of questions">
-            <h3 class="text-success"><b>{{q.question}}</b></h3>
-            <p class="" *ngFor="let option of q.options; index as i">
-              {{i+1}}. {{option}}
-            </p>
+          <button
+            type="button"
+            class="btn btn-success mt-3 ms-3"
+            (click)="printQuestions(container)"
+          >
+          Print Questions
+        </button>
+          <div>
+            <div class="card-body shadow p-2 mb-3" style="font-size: 18px;" *ngFor="let q of questions">
+              <h3 class="text-success"><b>{{q.question}}</b></h3>
+              <div class="row g-3 align-items-center" *ngFor="let option of q.options; index as i">
+                <div class="col-auto">
+                  <label for="inputPassword6" class="col-form-label">{{i+1}}.</label>
+                </div>
+                <div class="col-auto">
+                  <input type="text" class="form-control" value="{{option}}">
+                </div>
+              </div>
+              <!-- <p class="" *ngFor="let option of q.options; index as i">
+                {{i+1}}. <input type="text" value="{{option}}" class="form-control">
+              </p> -->
+            </div>
           </div>
-
+          <div  hidden #container>
+            <h1>Questions : </h1>
+            <div class="card-body shadow p-2 mb-3" style="font-size: 18px;" *ngFor="let q of questions; index as j">
+              <h3 class="text-success"><b>{{j+1}}. {{q.question}}</b></h3>
+              <p class="" *ngFor="let option of q.options; index as i">
+                {{i+1}}. {{option}}
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="ms-3 mt-3" *ngIf="questions">
+        <div class="ms-3 mt-3" *ngIf="questions.length > 0">
           <h1>Answers : </h1>
 
           <div class="card-body pb-2" style="font-size: 18px;" *ngFor="let q of questions; index as i">
